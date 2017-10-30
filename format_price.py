@@ -1,13 +1,15 @@
+import argparse
+
 def format_price(price):
     try:
         if not isinstance(price, int) and not isinstance(price, float):
             price = float(price)
-        return "{:,.2f}".format(price).rstrip('0').rstrip('.,').replace(',', ' ')
+        return "{:,.2f}".format(round(price, 2)).replace('.00', '').replace(',', ' ')
     except (ValueError, TypeError):
-        return 'Incorrect value'
+        raise ValueError("Incoeect price format. Need integer or float")
 
 
 if __name__ == '__main__':
-    while True:
-        price = input('Input price for formatting: ')
-        print(format_price(price))
+    parser = argparse.ArgumentParser(description='Formatting prices.')
+    parser.add_argument('price', type=float, help="Enter price for formatting")
+    print(format_price(parser.parse_args().price))
