@@ -16,12 +16,11 @@ class TestCasePrice(unittest.TestCase):
         self.assertEqual(format_price('120300'), '120 300')
 
     def test_letter_case(self):
-        with self.assertRaises(ValueError):
-            format_price('120t00')
+        self.assertIsNone(format_price('120t00'))
 
     def test_list_case(self):
-        with self.assertRaises(ValueError):
-            format_price([12000])
+        self.assertIsNone(format_price([12000]))
+
 
 if __name__ == '__main__':
     unittest.main()
